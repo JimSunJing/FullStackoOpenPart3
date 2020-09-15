@@ -1,0 +1,19 @@
+{
+  "name": "fullstackopenpart3",
+  "version": "0.0.1",
+  "description": "FullStack Open Course Part 3 back-end exercise ",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": "https://github.com/JimSunJing/FullStackoOpenPart3.git",
+  "author": "Jim Sun",
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
