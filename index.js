@@ -1,4 +1,6 @@
 const express = require('express')
+const morgan = require('morgan')
+
 const app = express()
 
 let phonebook = [
@@ -25,6 +27,18 @@ let phonebook = [
 ]
 
 app.use(express.json())
+
+// exercise 3.8
+morgan.token('postData', req => {
+  return Object.keys(req.body).length === 0 && req.body.constructor === Object 
+    ? ' ' 
+    : JSON.stringify(req.body)
+})
+
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms :postData'))
+
+// execise 3.7
+// app.use(morgan('tiny'))
 
 // exercise 3.1
 app.get('/api/persons', (req, res) => {
