@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "deploy": "git push heroku master",
+    "logs:prod": "heroku logs --tail"
   },
   "repository": "https://github.com/JimSunJing/FullStackoOpenPart3.git",
   "author": "Jim Sun",
