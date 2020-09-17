@@ -43,7 +43,7 @@ app.use(morgan(':method :url :status :res[content-length] - :response-time ms :p
 // execise 3.7
 // app.use(morgan('tiny'))
 
-app.get('/favicon.ico', (req, res) => res.status(204))
+// app.get('/favicon.ico', (req, res) => res.status(204))
 
 // exercise 3.1
 app.get('/api/persons', (req, res) => {
