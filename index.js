@@ -28,6 +28,9 @@ let phonebook = [
 
 app.use(express.json())
 
+// 显示静态资源的中间件
+app.use(express.static('build'))
+
 // exercise 3.8
 morgan.token('postData', req => {
   return Object.keys(req.body).length === 0 && req.body.constructor === Object 
@@ -41,10 +44,6 @@ app.use(morgan(':method :url :status :res[content-length] - :response-time ms :p
 // app.use(morgan('tiny'))
 
 app.get('/favicon.ico', (req, res) => res.status(204))
-
-app.get('/', (req,res) => {
-  res.send('<h1>This is a phone book</h1>')
-})
 
 // exercise 3.1
 app.get('/api/persons', (req, res) => {
