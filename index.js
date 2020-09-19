@@ -1,30 +1,9 @@
+require('dotenv').config()
 const express = require('express')
 const morgan = require('morgan')
+const Person = require('./modules/phonebook')
 
 const app = express()
-
-let phonebook = [
-  {
-    id: 1,
-    name: 'Arto Hellas',
-    number: '040-123456'
-  },
-  {
-    id: 2,
-    name: 'Ada Lovelace',
-    number: '39-44-5323523'
-  },
-  {
-    id: 3,
-    name: 'Dan Abramov',
-    number: '12-43-234345'
-  },
-  {
-    id: 4,
-    name: 'Mary Poppendick',
-    number: '39-23-6423122'
-  },
-]
 
 app.use(express.json())
 
@@ -40,33 +19,29 @@ morgan.token('postData', req => {
 
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :postData'))
 
-// execise 3.7
-// app.use(morgan('tiny'))
-
-// app.get('/favicon.ico', (req, res) => res.status(204))
-
-// exercise 3.1
 app.get('/api/persons', (req, res) => {
-  res.json(phonebook)
+  // exercise 3.13
+  Person.find({}).then(data => {
+    res.json(data)
+  })
 })
 
 // exercise 3.2
 app.get('/info', (req,res)=>{
-  res.send(`
-    <div>Phonebook has info for ${phonebook.length} people</div>
-    <div>${new Date()}</div>
-  `)
+  Person.find({}).then(data => {
+    res.send(`
+      <div>Phonebook has info for ${data.length} people</div>
+      <div>${new Date()}</div>
+    `)
+  })
 })
 
-// exercise 3.3
 app.get('/api/persons/:id', (req,res)=>{
-  const id = Number(req.params.id)
-  console.log(id);
-  const person = phonebook.find(p=>p.id === id)
-  console.log(person);
+  Person.findById(req.params.id)
+    .then(data => {
+      res.json(data)
+    })
 
-  person ? res.json(person)
-    : res.status(404).end()
 })
 
 // exercise 3.4 
@@ -108,7 +83,7 @@ app.post('/api/persons', (req,res) => {
   res.json(newP)
 })
 
-const PORT = process.env.PORT || 3001
+const PORT = process.env.PORT
 
 app.listen(PORT, () => {
   console.log(`server run on port ${PORT}`);

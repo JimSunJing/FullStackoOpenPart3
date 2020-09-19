@@ -1,16 +1,16 @@
+require('dotenv').config()
 const mongoose = require('mongoose')
 
-console.log('argv length:',process.argv.length);
+// console.log('argv length:',process.argv.length);
 
-if (process.argv.length < 3) {
-  console.log('please provide mongoDB password: node mango.js <password>');
-  process.exit(1)
-}
+// if (process.argv.length < 3) {
+//   console.log('please provide mongoDB password: node mango.js <password>');
+//   process.exit(1)
+// }
 
-const pwd = process.argv[2]
+// const pwd = process.argv[2]
 
-const url =
-  `mongodb+srv://fullstack:${encodeURI(pwd)}@cluster0.azejh.mongodb.net/phonebook?retryWrites=true&w=majority`
+const url = process.env.MONGODB_URI
 
 console.log('url', url);
 
