@@ -51,7 +51,9 @@ app.get('/api/persons/:id', (req, res, next) => {
 // exercise 3.4 
 app.delete('/api/persons/:id', (req, res, next) => {
   Person.findByIdAndRemove(req.params.id)
-    .then(result => {res.status(204).end()})
+    .then(result => {
+      res.status(204).end()
+    })
     .catch(err => next(err))
 })
 
@@ -72,11 +74,6 @@ app.post('/api/persons', (req, res) => {
       error: "need to provide number."
     })
   }
-  // else if (phonebook.find(p => p.name === body.name)){
-  //   return res.status(400).json({
-  //     error: "name must be unique"
-  //   })
-  // }
 
   const newP = new Person({
     name: body.name,
@@ -86,6 +83,19 @@ app.post('/api/persons', (req, res) => {
   newP.save().then(data => {
     res.json(data)
   })
+})
+
+app.put('/api/persons/:id', (req, res, next) => {
+  const body = req.body
+  const person = {
+    name: body.name,
+    number: body.number
+  }
+  Person.findByIdAndUpdate(req.params.id, person, {new: true})
+    .then (updated => {
+      res.json(updated)
+    })
+    .catch(err => next(err))
 })
 
 // ------------ 后端事件处理结束 -------------
