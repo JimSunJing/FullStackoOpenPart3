@@ -12,13 +12,13 @@ const mongoose = require('mongoose')
 
 const url = process.env.MONGODB_URI
 
-console.log('url', url);
+console.log('url', url)
 
 mongoose.connect(url, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 }).catch(e => {
-  console.log('error', e);
+  console.log('error', e)
 })
 
 const personSchema = new mongoose.Schema({
@@ -34,16 +34,16 @@ if (process.argv.length === 5) {
     name: process.argv[3],
     number: process.argv[4]
   })
-  newPerson.save().then(result => {
-    console.log(`added ${newPerson.name} number ${newPerson.number} to phonebook`);
+  newPerson.save().then(() => {
+    console.log(`added ${newPerson.name} number ${newPerson.number} to phonebook`)
     mongoose.connection.close()
   })
 } else {
   // 返回所有成员
-  console.log('phonebook:');
+  console.log('phonebook:')
   Person.find({}).then(result => {
     result.forEach(p => {
-      console.log(p.name, p.number);
+      console.log(p.name, p.number)
     })
     mongoose.connection.close()
   })

@@ -6,18 +6,18 @@ var uniqueValidator = require('mongoose-unique-validator')
 
 const url = process.env.MONGODB_URI
 
-console.log('url', url);
+console.log('url', url)
 
 mongoose.connect(url, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
-.then(res => {
-  console.log('connected to MongoDB');
-})
-.catch(e => {
-  console.log('error connecting mongoDB',e);
-})
+  .then(() => {
+    console.log('connected to MongoDB')
+  })
+  .catch(e => {
+    console.log('error connecting mongoDB', e)
+  })
 
 const personSchema = new mongoose.Schema({
   name: {

@@ -48,18 +48,15 @@ app.get('/api/persons/:id', (req, res, next) => {
 
 })
 
-// exercise 3.4 
+// exercise 3.4
 app.delete('/api/persons/:id', (req, res, next) => {
   Person.findByIdAndRemove(req.params.id)
-    .then(result => {
+    .then(() => {
       res.status(204).end()
     })
     .catch(err => next(err))
 })
 
-const getRandomInt = max => {
-  return Math.floor(Math.random() * Math.floor(max))
-}
 
 // exercise 3.14
 app.post('/api/persons', (req, res, next) => {
@@ -67,11 +64,11 @@ app.post('/api/persons', (req, res, next) => {
 
   if (!body.name) {
     return res.status(400).json({
-      error: "need to provide name."
+      error: 'need to provide name.'
     })
   } else if (!body.number) {
     return res.status(400).json({
-      error: "need to provide number."
+      error: 'need to provide number.'
     })
   }
 
@@ -122,13 +119,12 @@ const errorHandler = (err, req, res, next) => {
   } else if (err.name === 'ValidationError') {
     return res.status(400).json({ error: err.message })
   }
-
-  next(error)
+  next(err)
 }
 app.use(errorHandler)
 
 const PORT = process.env.PORT
 
 app.listen(PORT, () => {
-  console.log(`server run on port ${PORT}`);
+  console.log(`server run on port ${PORT}`)
 })

@@ -7,12 +7,14 @@
     "start": "node index.js",
     "dev": "nodemon index.js",
     "deploy": "git push heroku master",
-    "logs:prod": "heroku logs --tail"
+    "logs:prod": "heroku logs --tail",
+    "lint": "eslint ."
   },
   "repository": "https://github.com/JimSunJing/FullStackoOpenPart3.git",
   "author": "Jim Sun",
   "license": "MIT",
   "devDependencies": {
+    "eslint": "^7.9.0",
     "nodemon": "^2.0.4"
   },
   "dependencies": {
