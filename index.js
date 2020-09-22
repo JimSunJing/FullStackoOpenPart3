@@ -62,7 +62,7 @@ const getRandomInt = max => {
 }
 
 // exercise 3.14
-app.post('/api/persons', (req, res) => {
+app.post('/api/persons', (req, res, next) => {
   const body = req.body
 
   if (!body.name) {
@@ -80,9 +80,10 @@ app.post('/api/persons', (req, res) => {
     number: body.number
   })
 
-  newP.save().then(data => {
-    res.json(data)
-  })
+  newP.save()
+    .then(data => {
+      res.json(data.toJSON())
+    }).catch(e => next(e))
 })
 
 app.put('/api/persons/:id', (req, res, next) => {
@@ -112,6 +113,8 @@ const errorHandler = (err, req, res, next) => {
 
   if (err.name === 'CastError' && err.kind === 'ObjectId') {
     return res.status(400).send({error: 'malformatted id'})
+  } else if (err.name === 'ValidationError') {
+    return res.status(400).json({error: err.message})
   }
   
   next(error)
